@@ -9,8 +9,10 @@ package xyz.dashnetwork.luna;
 
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.Messenger;
 import xyz.dashnetwork.luna.listeners.PlayerJoinListener;
 import xyz.dashnetwork.luna.listeners.PlayerQuitListener;
+import xyz.dashnetwork.luna.test.ChannelListener;
 
 public final class Luna extends JavaPlugin {
 
@@ -19,6 +21,9 @@ public final class Luna extends JavaPlugin {
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new PlayerJoinListener(), this);
         manager.registerEvents(new PlayerQuitListener(), this);
+
+        Messenger messenger = getServer().getMessenger();
+        messenger.registerIncomingPluginChannel(this, "dn:displayname", new ChannelListener());
     }
 
 }
