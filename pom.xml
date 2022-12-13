@@ -1,0 +1,55 @@
+<!--
+  ~ Copyright (C) 2022 Andrew Bell - All Rights Reserved
+  ~
+  ~ Unauthorized copying or redistribution of this file in source and binary forms via any medium
+  ~ is strictly prohibited.
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>xyz.dashnetwork</groupId>
+    <artifactId>Luna</artifactId>
+    <version>0.1</version>
+    <build>
+        <sourceDirectory>src</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <repositories>
+        <repository>
+            <id>hpfxd-repo</id>
+            <url>https://repo.hpfxd.com/releases/</url>
+        </repository>
+        <repository>
+            <id>dmulloy2-repo</id>
+            <url>https://repo.dmulloy2.net/repository/public/</url>
+        </repository>
+    </repositories>
+    <dependencies>
+        <dependency>
+            <groupId>com.hpfxd.pandaspigot</groupId>
+            <artifactId>pandaspigot-api</artifactId>
+            <version>1.8.8-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
+            <version>4.7.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+</project>
