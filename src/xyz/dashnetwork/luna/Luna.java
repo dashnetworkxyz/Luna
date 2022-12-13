@@ -7,12 +7,18 @@
 
 package xyz.dashnetwork.luna;
 
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.dashnetwork.luna.listeners.PlayerJoinListener;
+import xyz.dashnetwork.luna.listeners.PlayerQuitListener;
 
 public final class Luna extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        PluginManager manager = getServer().getPluginManager();
+        manager.registerEvents(new PlayerJoinListener(), this);
+        manager.registerEvents(new PlayerQuitListener(), this);
     }
 
 }
