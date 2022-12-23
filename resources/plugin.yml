@@ -1,4 +1,6 @@
 name: Luna
 version: 0.1
 author: MasterDash5
+softdepend: [ ProtocolLib, PlaceholderAPI ]
 main: xyz.dashnetwork.luna.Luna
+api-version: 1.13

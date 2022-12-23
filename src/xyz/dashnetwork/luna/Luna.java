@@ -13,6 +13,7 @@ import org.bukkit.plugin.messaging.Messenger;
 import xyz.dashnetwork.luna.listeners.PlayerJoinListener;
 import xyz.dashnetwork.luna.listeners.PlayerQuitListener;
 import xyz.dashnetwork.luna.test.ChannelListener;
+import xyz.dashnetwork.luna.utils.PlatformUtils;
 
 public final class Luna extends JavaPlugin {
 
@@ -24,6 +25,16 @@ public final class Luna extends JavaPlugin {
 
         Messenger messenger = getServer().getMessenger();
         messenger.registerIncomingPluginChannel(this, "dn:displayname", new ChannelListener());
+
+        int version = PlatformUtils.getServerVersion();
+
+        if (version >= 12) {
+            // 1.12
+        }
+
+        if (version >= 17) {
+            // 1.17
+        }
     }
 
 }

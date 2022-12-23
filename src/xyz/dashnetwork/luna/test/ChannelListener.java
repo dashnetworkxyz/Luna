@@ -15,7 +15,7 @@ import org.bukkit.plugin.messaging.PluginMessageListener;
 
 import java.util.UUID;
 
-public class ChannelListener implements PluginMessageListener {
+public final class ChannelListener implements PluginMessageListener {
 
     @Override
     public void onPluginMessageReceived(String id, Player player, byte[] bytes) {
