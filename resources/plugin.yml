@@ -1,5 +1,5 @@
 name: Luna
-version: 0.1
+version: 0.2
 author: MasterDash5
 softdepend: [ ProtocolLib ]
 main: xyz.dashnetwork.luna.Luna
