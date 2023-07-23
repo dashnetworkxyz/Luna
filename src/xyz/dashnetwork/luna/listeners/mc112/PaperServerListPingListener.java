@@ -15,23 +15,20 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package xyz.dashnetwork.luna.utils;
+package xyz.dashnetwork.luna.listeners.mc112;
 
-import org.bukkit.Bukkit;
+import com.destroystokyo.paper.event.server.PaperServerListPingEvent;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 
-public final class PlatformUtils {
+public final class PaperServerListPingListener implements Listener {
 
-    public static int getServerVersion() {
-        String result = Bukkit.getVersion().replaceFirst(" \\(MC: (\\d+).(\\d+)(.\\d+)?", "$2");
-        int version = 8; // Default to 1.8
-
-        try {
-            version = Integer.getInteger(result);
-        } catch (NumberFormatException exception) {
-            exception.printStackTrace();
-        }
-
-        return version;
+    @EventHandler
+    public void onPaperServerListPing(PaperServerListPingEvent event) {
+        event.setHidePlayers(true);
+        event.setProtocolVersion(1);
+        event.setVersion("");
+        event.setMotd("");
     }
 
 }

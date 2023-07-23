@@ -15,23 +15,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package xyz.dashnetwork.luna.utils;
+package xyz.dashnetwork.luna.utils.chat;
 
-import org.bukkit.Bukkit;
+import org.jetbrains.annotations.NotNull;
 
-public final class PlatformUtils {
+public final class ColorUtils {
 
-    public static int getServerVersion() {
-        String result = Bukkit.getVersion().replaceFirst(" \\(MC: (\\d+).(\\d+)(.\\d+)?", "$2");
-        int version = 8; // Default to 1.8
+    public static String fromAmpersand(@NotNull String string) {
+        return string.replaceAll("&([0-f]|[k-o]|r|x)", "§$1");
+    }
 
-        try {
-            version = Integer.getInteger(result);
-        } catch (NumberFormatException exception) {
-            exception.printStackTrace();
-        }
-
-        return version;
+    public static String strip(@NotNull String string) {
+        return string.replaceAll("[&§]([0-f]|[k-o]|r|x)", "");
     }
 
 }

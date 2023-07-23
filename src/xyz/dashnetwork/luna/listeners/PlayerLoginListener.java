@@ -19,13 +19,21 @@ package xyz.dashnetwork.luna.listeners;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import xyz.dashnetwork.luna.Luna;
 
-public final class PlayerJoinListener implements Listener {
+public final class PlayerLoginListener implements Listener {
 
     @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        event.setJoinMessage(null);
+    public void onPlayerLogin(PlayerLoginEvent event) {
+        String bungee = Luna.getInstance().getConfig().getString("bungee-address");
+        String address = event.getRealAddress().getHostAddress();
+
+        if (bungee.equalsIgnoreCase("disable"))
+            return;
+
+        if (!address.equals(bungee))
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "");
     }
 
 }

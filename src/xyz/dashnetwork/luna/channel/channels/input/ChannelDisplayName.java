@@ -15,23 +15,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package xyz.dashnetwork.luna.utils;
+package xyz.dashnetwork.luna.channel.channels.input;
 
+import com.google.common.io.ByteArrayDataInput;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import xyz.dashnetwork.luna.channel.Channel;
 
-public final class PlatformUtils {
+import java.util.UUID;
 
-    public static int getServerVersion() {
-        String result = Bukkit.getVersion().replaceFirst(" \\(MC: (\\d+).(\\d+)(.\\d+)?", "$2");
-        int version = 8; // Default to 1.8
+public final class ChannelDisplayName extends Channel {
 
-        try {
-            version = Integer.getInteger(result);
-        } catch (NumberFormatException exception) {
-            exception.printStackTrace();
+    @Override
+    protected void receive(ByteArrayDataInput input) {
+        UUID uuid = UUID.fromString(input.readUTF());
+        String displayname = input.readUTF();
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (player != null) {
+            player.setDisplayName(displayname);
+            player.setPlayerListName(displayname);
         }
-
-        return version;
     }
 
 }

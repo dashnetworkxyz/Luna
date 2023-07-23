@@ -17,21 +17,26 @@
 
 package xyz.dashnetwork.luna.utils;
 
-import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import xyz.dashnetwork.luna.utils.connection.User;
 
-public final class PlatformUtils {
+import java.util.function.Predicate;
 
-    public static int getServerVersion() {
-        String result = Bukkit.getVersion().replaceFirst(" \\(MC: (\\d+).(\\d+)(.\\d+)?", "$2");
-        int version = 8; // Default to 1.8
+public enum PermissionType {
 
-        try {
-            version = Integer.getInteger(result);
-        } catch (NumberFormatException exception) {
-            exception.printStackTrace();
-        }
+    GLOBAL(user -> true),
+    STAFF(User::isStaff),
+    ADMIN(User::isAdmin),
+    OWNER(User::isOwner);
 
-        return version;
+    private final Predicate<User> predicate;
+
+    PermissionType(Predicate<User> predicate) { this.predicate = predicate; }
+
+    public Predicate<User> getPredicate() { return predicate; }
+
+    public boolean hasPermission(CommandSender sender) {
+        return User.getUser(sender).map(predicate::test).orElse(true);
     }
 
 }

@@ -1,8 +1,18 @@
 /*
- * Copyright (C) 2022 Andrew Bell - All Rights Reserved
+ * Luna
+ * Copyright (C) 2023  DashNetwork
  *
- * Unauthorized copying or redistribution of this file in source and binary forms via any medium
- * is strictly prohibited.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 package xyz.dashnetwork.luna.listeners;
@@ -10,12 +20,15 @@ package xyz.dashnetwork.luna.listeners;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
+import xyz.dashnetwork.luna.utils.connection.User;
 
 public final class PlayerQuitListener implements Listener {
 
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
         event.setQuitMessage(null);
+
+        User.getUser(event.getPlayer()).remove();
     }
 
 }
