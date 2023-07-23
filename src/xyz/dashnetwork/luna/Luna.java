@@ -19,6 +19,10 @@ package xyz.dashnetwork.luna;
 
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import xyz.dashnetwork.luna.channel.Channel;
+import xyz.dashnetwork.luna.channel.channels.input.ChannelDisplayName;
+import xyz.dashnetwork.luna.channel.channels.input.ChannelTwoFactor;
+import xyz.dashnetwork.luna.commands.CommandNightVision;
 import xyz.dashnetwork.luna.listeners.PlayerJoinListener;
 import xyz.dashnetwork.luna.listeners.PlayerQuitListener;
 import xyz.dashnetwork.luna.listeners.mc112.PaperServerListPingListener;
@@ -41,23 +45,21 @@ public final class Luna extends JavaPlugin {
         saveDefaultConfig();
 
         getLogger().info("Registering channels...");
-        // TODO: Channels
+        Channel.registerIn("displayname", ChannelDisplayName::new);
+        Channel.registerIn("twofactor", ChannelTwoFactor::new);
 
         getLogger().info("Registering listeners...");
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new PlayerJoinListener(), this);
         manager.registerEvents(new PlayerQuitListener(), this);
 
-        boolean protocolLib = manager.isPluginEnabled("ProtocolLib");
-        int version = PlatformUtils.getServerVersion();
-
-        if (version >= 12)
+        if (PlatformUtils.getServerVersion() >= 12)
             manager.registerEvents(new PaperServerListPingListener(), this);
-        else if (protocolLib)
+        else if (manager.isPluginEnabled("ProtocolLib"))
             new ServerInfoListener(this);
 
         getLogger().info("Registering commands...");
-        // TODO: Commands
+        getCommand("nightvision").setExecutor(new CommandNightVision());
 
         getLogger().info("Scheduling tasks...");
         // TODO: Tasks

@@ -15,23 +15,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package xyz.dashnetwork.luna.utils;
+package xyz.dashnetwork.luna.utils.chat.builder;
 
-import org.bukkit.Bukkit;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.format.TextColor;
+import xyz.dashnetwork.luna.utils.connection.User;
 
-public final class PlatformUtils {
+import java.util.function.Predicate;
 
-    public static double getServerVersion() {
-        String result = Bukkit.getVersion().split("\\(MC: ")[1].replaceFirst("(\\d+).(\\d+)(.\\d+)?\\)", "$2$3");
-        double version = 8; // Default to 1.8
+public interface Section {
 
-        try {
-            version = Double.parseDouble(result);
-        } catch (NumberFormatException exception) {
-            exception.printStackTrace();
-        }
+    Section hover(String hover);
 
-        return version;
-    }
+    Section hover(String hover, Predicate<User> filter);
+
+    Section click(ClickEvent click);
+
+    Section insertion(String insertion);
+
+    Section color(TextColor color);
+
+    Section filter(Predicate<User> filter);
+
 
 }

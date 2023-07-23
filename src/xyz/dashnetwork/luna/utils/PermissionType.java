@@ -39,4 +39,11 @@ public enum PermissionType {
         return User.getUser(sender).map(predicate::test).orElse(true);
     }
 
+    public String toPermissionNode() {
+        if (this.equals(GLOBAL))
+            return null;
+
+        return "dashnetwork." + name().toLowerCase();
+    }
+
 }

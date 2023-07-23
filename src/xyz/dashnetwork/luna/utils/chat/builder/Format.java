@@ -15,23 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package xyz.dashnetwork.luna.utils;
+package xyz.dashnetwork.luna.utils.chat.builder;
 
-import org.bukkit.Bukkit;
+import xyz.dashnetwork.luna.utils.chat.builder.sections.ComponentSection;
 
-public final class PlatformUtils {
+import java.util.List;
 
-    public static double getServerVersion() {
-        String result = Bukkit.getVersion().split("\\(MC: ")[1].replaceFirst("(\\d+).(\\d+)(.\\d+)?\\)", "$2$3");
-        double version = 8; // Default to 1.8
+public interface Format {
 
-        try {
-            version = Double.parseDouble(result);
-        } catch (NumberFormatException exception) {
-            exception.printStackTrace();
-        }
-
-        return version;
-    }
+    List<ComponentSection> sections();
 
 }

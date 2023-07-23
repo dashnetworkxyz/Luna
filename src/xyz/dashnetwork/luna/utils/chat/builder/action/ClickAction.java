@@ -15,23 +15,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package xyz.dashnetwork.luna.utils;
+package xyz.dashnetwork.luna.utils.chat.builder.action;
 
-import org.bukkit.Bukkit;
+import net.md_5.bungee.api.chat.ClickEvent;
 
-public final class PlatformUtils {
+public enum ClickAction {
 
-    public static double getServerVersion() {
-        String result = Bukkit.getVersion().split("\\(MC: ")[1].replaceFirst("(\\d+).(\\d+)(.\\d+)?\\)", "$2$3");
-        double version = 8; // Default to 1.8
+    OPEN_URL(ClickEvent.Action.OPEN_URL),
+    OPEN_FILE(ClickEvent.Action.OPEN_FILE),
+    RUN_COMMAND(ClickEvent.Action.RUN_COMMAND),
+    SUGGEST_COMMAND(ClickEvent.Action.SUGGEST_COMMAND),
+    CHANGE_PAGE(ClickEvent.Action.CHANGE_PAGE);
 
-        try {
-            version = Double.parseDouble(result);
-        } catch (NumberFormatException exception) {
-            exception.printStackTrace();
-        }
+    private final ClickEvent.Action action;
 
-        return version;
-    }
+    ClickAction(ClickEvent.Action action) { this.action = action; }
+
+    public ClickEvent.Action getAction() { return action; }
 
 }

@@ -5,3 +5,16 @@ softdepend: [ ProtocolLib ]
 main: xyz.dashnetwork.luna.Luna
 api-version: 1.13
 folia-supported: true
+
+commands:
+  nightvision:
+    aliases: ["nc", "see", "c"]
+    permission: "dashnetwork.staff"
+
+permissions:
+  dashnetwork.staff:
+    default: op
+  dashnetwork.admin:
+    default: op
+  dashnetwork.owner:
+    default: false
