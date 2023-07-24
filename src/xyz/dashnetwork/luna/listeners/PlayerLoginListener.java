@@ -27,13 +27,10 @@ public final class PlayerLoginListener implements Listener {
 
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent event) {
-        String bungee = Luna.getInstance().getConfig().getString("bungee-address");
+        String proxy = Luna.getInstance().getConfig().getString("proxy-address");
         String address = event.getRealAddress().getHostAddress();
 
-        if (bungee.equalsIgnoreCase("disable"))
-            return;
-
-        if (!address.equals(bungee))
+        if (!proxy.equalsIgnoreCase("disable") && !address.equals(proxy))
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "");
     }
 

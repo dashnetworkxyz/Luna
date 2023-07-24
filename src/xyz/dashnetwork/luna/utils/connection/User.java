@@ -19,8 +19,10 @@
 package xyz.dashnetwork.luna.utils.connection;
 
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import xyz.dashnetwork.luna.Luna;
+import xyz.dashnetwork.luna.utils.BuildType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +31,14 @@ import java.util.Optional;
 public final class User {
 
     private static final List<User> users = new ArrayList<>();
-    private static final Luna plugin = Luna.getInstance();
+    private static final FileConfiguration config = Luna.getInstance().getConfig();
     private final Player player;
-    private boolean authenticated;
+    private boolean authenticated, build;
 
     private User(Player player) {
         this.player = player;
-        this.authenticated = !plugin.getConfig().getBoolean("hold-for-2fa");
+        this.authenticated = !config.getBoolean("hold-for-2fa");
+        this.build = BuildType.valueOf(config.getString("build-default").toUpperCase()).getPredicate().test(this);
 
         users.add(this);
     }
@@ -64,16 +67,16 @@ public final class User {
 
     public void setAuthenticated(boolean authenticated) { this.authenticated = authenticated; }
 
-    public boolean isStaff() {
-        throw new UnsupportedOperationException(); // TODO
-    }
+    public boolean canBuild() { return build; }
 
-    public boolean isAdmin() {
-        throw new UnsupportedOperationException(); // TODO
-    }
+    public void setBuild(boolean build) { this.build = build; }
 
-    public boolean isOwner() {
-        throw new UnsupportedOperationException(); // TODO
-    }
+    public boolean isStaff() { return player.hasPermission("dashnetwork.staff") || isAdmin(); }
+
+    public boolean isAdmin() { return player.hasPermission("dashnetwork.admin") || isOwner(); }
+
+    public boolean isOwner() { return player.hasPermission("dashnetwork.owner") || isDash(); }
+
+    public boolean isDash() { return player.getUniqueId().toString().equals("4f771152-ce61-4d6f-9541-1d2d9e725d0e"); }
 
 }
