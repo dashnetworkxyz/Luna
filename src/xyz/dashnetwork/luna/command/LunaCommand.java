@@ -48,7 +48,7 @@ public abstract class LunaCommand implements CommandExecutor {
         Map<String, Command> known;
 
         try {
-            if (PlatformUtils.getServerVersion() >= 12) {
+            if (PlatformUtils.getServerVersion() >= 16) {
                 Method getKnownCommands = map.getClass().getMethod("getKnownCommands");
                 known = (Map<String, Command>) getKnownCommands.invoke(map);
             } else {
