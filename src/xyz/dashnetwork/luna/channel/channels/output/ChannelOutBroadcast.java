@@ -20,11 +20,11 @@ package xyz.dashnetwork.luna.channel.channels.output;
 
 import xyz.dashnetwork.luna.channel.Channel;
 
-public final class ChannelBroadcast extends Channel {
+public final class ChannelOutBroadcast extends Channel {
 
     @Override
-    protected void send(Object object) {
-
+    protected void send(Object[] objects) {
+        // TODO
     }
 
 }

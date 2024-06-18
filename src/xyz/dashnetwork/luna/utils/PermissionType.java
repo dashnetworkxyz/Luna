@@ -25,7 +25,7 @@ import java.util.function.Predicate;
 
 public enum PermissionType {
 
-    GLOBAL(user -> true),
+    NONE(user -> true),
     STAFF(User::isStaff),
     ADMIN(User::isAdmin),
     OWNER(User::isOwner);
@@ -41,7 +41,7 @@ public enum PermissionType {
     }
 
     public String toPermissionNode() {
-        if (this.equals(GLOBAL))
+        if (this.equals(NONE))
             return null;
 
         return "dashnetwork." + name().toLowerCase();

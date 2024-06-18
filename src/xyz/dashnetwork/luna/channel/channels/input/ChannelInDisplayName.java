@@ -22,20 +22,21 @@ import com.google.common.io.ByteArrayDataInput;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import xyz.dashnetwork.luna.channel.Channel;
-import xyz.dashnetwork.luna.utils.connection.User;
 
 import java.util.UUID;
 
-public final class ChannelTwoFactor extends Channel {
+public final class ChannelInDisplayName extends Channel {
 
     @Override
     protected void receive(ByteArrayDataInput input) {
         UUID uuid = UUID.fromString(input.readUTF());
-        boolean authenticated = input.readBoolean();
+        String displayname = input.readUTF();
         Player player = Bukkit.getPlayer(uuid);
 
-        if (player != null)
-            User.getUser(player).setAuthenticated(authenticated);
+        if (player != null) {
+            player.setDisplayName(displayname);
+            player.setPlayerListName(displayname);
+        }
     }
 
 }

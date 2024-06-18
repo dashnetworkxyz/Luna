@@ -18,6 +18,7 @@
 
 package xyz.dashnetwork.luna.utils.connection;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -27,6 +28,7 @@ import xyz.dashnetwork.luna.utils.BuildType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public final class User {
 
@@ -57,6 +59,15 @@ public final class User {
             return Optional.of(getUser((Player) sender));
 
         return Optional.empty();
+    }
+
+    public static Optional<User> getUser(UUID uuid) {
+        Player player = Bukkit.getPlayer(uuid);
+
+        if (player == null)
+            return Optional.empty();
+
+        return Optional.of(getUser(player));
     }
 
     public void remove() { users.remove(this); }

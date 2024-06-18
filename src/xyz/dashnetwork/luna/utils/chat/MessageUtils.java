@@ -20,6 +20,7 @@ package xyz.dashnetwork.luna.utils.chat;
 
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -36,7 +37,7 @@ public final class MessageUtils {
     private static final CommandSender consoleCommandSender = server.getConsoleSender();
 
     public static void message(CommandSender sender, String message) {
-        String colored = ColorUtils.fromAmpersand(message);
+        String colored = ChatColor.translateAlternateColorCodes('&', message);
 
         if (sender instanceof Player player)
             player.sendMessage(TextComponent.fromLegacyText(colored));

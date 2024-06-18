@@ -50,15 +50,21 @@ public abstract class Channel {
         outputMap.put(name, supplier);
     }
 
-    public static void call(String name, Object object) {
+    public static void call(String name, Object... objects) {
         Supplier<Channel> supplier = outputMap.get(name);
 
-        if (supplier != null)
-            supplier.get().send(object);
+        if (supplier != null) {
+            Channel channel = supplier.get();
+            channel.send(objects);
+
+            Bukkit.getOnlinePlayers().stream().findAny().ifPresent(player ->
+                    player.sendPluginMessage(plugin, "dn:" + name, channel.output.toByteArray())
+            );
+        }
     }
 
     protected void receive(ByteArrayDataInput input) {}
 
-    protected void send(Object object) {}
+    protected void send(Object[] objects) {}
 
 }

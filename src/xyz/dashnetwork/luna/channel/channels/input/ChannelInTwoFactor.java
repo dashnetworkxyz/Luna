@@ -16,22 +16,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package xyz.dashnetwork.luna.utils.chat.builder.action;
+package xyz.dashnetwork.luna.channel.channels.input;
 
-import net.md_5.bungee.api.chat.ClickEvent;
+import com.google.common.io.ByteArrayDataInput;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import xyz.dashnetwork.luna.channel.Channel;
+import xyz.dashnetwork.luna.utils.connection.User;
 
-public enum ClickAction {
+import java.util.UUID;
 
-    OPEN_URL(ClickEvent.Action.OPEN_URL),
-    OPEN_FILE(ClickEvent.Action.OPEN_FILE),
-    RUN_COMMAND(ClickEvent.Action.RUN_COMMAND),
-    SUGGEST_COMMAND(ClickEvent.Action.SUGGEST_COMMAND),
-    CHANGE_PAGE(ClickEvent.Action.CHANGE_PAGE);
+public final class ChannelInTwoFactor extends Channel {
 
-    private final ClickEvent.Action action;
+    @Override
+    protected void receive(ByteArrayDataInput input) {
+        UUID uuid = UUID.fromString(input.readUTF());
+        boolean authenticated = input.readBoolean();
+        Player player = Bukkit.getPlayer(uuid);
 
-    ClickAction(ClickEvent.Action action) { this.action = action; }
-
-    public ClickEvent.Action getAction() { return action; }
+        if (player != null)
+            User.getUser(player).setAuthenticated(authenticated);
+    }
 
 }

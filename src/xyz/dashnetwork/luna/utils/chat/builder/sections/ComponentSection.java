@@ -1,30 +1,12 @@
-/*
- * Luna
- * Copyright (C) 2023  DashNetwork
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
-
 package xyz.dashnetwork.luna.utils.chat.builder.sections;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import xyz.dashnetwork.luna.utils.chat.ColorUtils;
+import xyz.dashnetwork.luna.utils.chat.StyleUtils;
 import xyz.dashnetwork.luna.utils.chat.builder.Section;
+import xyz.dashnetwork.luna.utils.chat.builder.Style;
 import xyz.dashnetwork.luna.utils.connection.User;
 
 import java.util.ArrayList;
@@ -33,43 +15,35 @@ import java.util.function.Predicate;
 
 public final class ComponentSection implements Section {
 
-    private static final LegacyComponentSerializer serializer = LegacyComponentSerializer.legacySection();
-    private final TextComponent.Builder builder = Component.text();
+    private final BaseComponent[] components;
     private final List<ComponentSection> hovers = new ArrayList<>();
     private Predicate<User> filter = user -> true;
 
     public ComponentSection(String text) {
-        String colored = ColorUtils.fromAmpersand(text).replace("§r", "§f");
-        builder.append(serializer.deserialize(colored));
+        components = TextComponent.fromLegacyText(ColorUtils.fromAmpersand(text));
     }
 
-    public TextComponent.Builder getBuilder() { return builder; }
+    public BaseComponent[] getComponents() { return components; }
 
     public List<ComponentSection> getHovers() { return hovers; }
 
     public Predicate<User> getFilter() { return filter; }
 
-    /*
     public Style getLastStyle() {
-        Component component = builder.build();
-        List<Component> children = ComponentUtils.getAllChildren(component);
         Style style = null;
 
-        for (int i = children.size() - 1; i >= 0; i--) {
-            Style child = children.get(i).style();
-
-            if (StyleUtils.hasColor(child)) {
-                style = child;
+        for (int i = components.length - 1; i >= 0; i--) {
+            if (StyleUtils.hasStyle(components[i])) {
+                style = Style.from(components[i]);
                 break;
             }
         }
 
         if (style == null)
-            style = component.style();
+            style = Style.NONE;
 
         return style;
     }
-     */
 
     @Override
     public Section hover(String text) {
@@ -84,20 +58,16 @@ public final class ComponentSection implements Section {
     }
 
     @Override
-    public Section click(ClickEvent event) {
-        builder.clickEvent(event);
+    public Section click(ClickEvent click) {
+        for (BaseComponent component : components)
+            component.setClickEvent(click);
         return this;
     }
 
     @Override
     public Section insertion(String insertion) {
-        builder.insertion(insertion);
-        return this;
-    }
-
-    @Override
-    public Section color(TextColor color) {
-        builder.colorIfAbsent(color);
+        for (BaseComponent component : components)
+            component.setInsertion(insertion);
         return this;
     }
 

@@ -21,13 +21,18 @@ package xyz.dashnetwork.luna;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.dashnetwork.luna.channel.Channel;
-import xyz.dashnetwork.luna.channel.channels.input.ChannelDisplayName;
-import xyz.dashnetwork.luna.channel.channels.input.ChannelTwoFactor;
+import xyz.dashnetwork.luna.channel.channels.input.ChannelInDisplayName;
+import xyz.dashnetwork.luna.channel.channels.input.ChannelInTwoFactor;
+import xyz.dashnetwork.luna.channel.channels.input.ChannelInVanish;
+import xyz.dashnetwork.luna.channel.channels.output.ChannelOutBroadcast;
+import xyz.dashnetwork.luna.channel.channels.output.ChannelOutSignSpy;
 import xyz.dashnetwork.luna.commands.CommandBuild;
+import xyz.dashnetwork.luna.commands.CommandCenter;
 import xyz.dashnetwork.luna.commands.CommandNightVision;
+import xyz.dashnetwork.luna.commands.CommandPeek;
 import xyz.dashnetwork.luna.listeners.*;
 import xyz.dashnetwork.luna.listeners.mc112.PaperServerListPingListener;
-import xyz.dashnetwork.luna.listeners.protocollib.ServerInfoListener;
+import xyz.dashnetwork.luna.listeners.protocollib.ServerInfoAdapter;
 import xyz.dashnetwork.luna.utils.PlatformUtils;
 
 public final class Luna extends JavaPlugin {
@@ -46,8 +51,11 @@ public final class Luna extends JavaPlugin {
         saveDefaultConfig();
 
         getLogger().info("Registering channels...");
-        Channel.registerIn("displayname", ChannelDisplayName::new);
-        Channel.registerIn("twofactor", ChannelTwoFactor::new);
+        Channel.registerIn("displayname", ChannelInDisplayName::new);
+        Channel.registerIn("twofactor", ChannelInTwoFactor::new);
+        Channel.registerIn("vanish", ChannelInVanish::new);
+        Channel.registerOut("broadcast", ChannelOutBroadcast::new);
+        Channel.registerOut("signspy", ChannelOutSignSpy::new);
 
         getLogger().info("Registering listeners...");
         PluginManager manager = getServer().getPluginManager();
@@ -58,15 +66,21 @@ public final class Luna extends JavaPlugin {
         manager.registerEvents(new PlayerLoginListener(), this);
         manager.registerEvents(new PlayerMoveListener(), this);
         manager.registerEvents(new PlayerQuitListener(), this);
+        manager.registerEvents(new SignChangeListener(), this);
+
+        if (!getConfig().getBoolean("spawn-chunks"))
+            manager.registerEvents(new WorldInitListener(), this);
 
         if (PlatformUtils.getServerVersion() >= 12)
             manager.registerEvents(new PaperServerListPingListener(), this);
         else if (manager.isPluginEnabled("ProtocolLib"))
-            new ServerInfoListener(this);
+            new ServerInfoAdapter(this);
 
         getLogger().info("Registering commands...");
         getCommand("build").setExecutor(new CommandBuild());
+        getCommand("center").setExecutor(new CommandCenter());
         getCommand("nightvision").setExecutor(new CommandNightVision());
+        getCommand("peek").setExecutor(new CommandPeek());
 
         getLogger().info("Scheduling tasks...");
         // TODO: Tasks

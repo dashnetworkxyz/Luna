@@ -28,7 +28,7 @@ public enum BuildType {
     STAFF(User::isStaff),
     ADMIN(User::isAdmin),
     OWNER(User::isOwner),
-    DISALLOWED(user -> false);
+    DENYED(user -> false);
 
     private final Predicate<User> predicate;
 

@@ -23,8 +23,16 @@ import org.bukkit.Bukkit;
 public final class PlatformUtils {
 
     public static double getServerVersion() {
-        String result = Bukkit.getVersion().split("\\(MC: ")[1].replaceFirst("(\\d+).(\\d+)(.\\d+)?\\)", "$2$3");
+        String bukkit = Bukkit.getVersion();
         double version = 8; // Default to 1.8
+        String result;
+
+        if (bukkit.contains("(MC: "))
+            result = bukkit.split("\\(MC: ")[1];
+        else
+            result = bukkit.split(" version ")[1];
+
+        result = result.replaceFirst("(\\d+).(\\d+)(.\\d+)?\\)", "$2$3");
 
         try {
             version = Double.parseDouble(result);

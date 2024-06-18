@@ -1,3 +1,4 @@
 proxy-address: "172.18.0.1"
 build-default: "allowed"
 hold-for-2fa: false
+spawn-chunks: false

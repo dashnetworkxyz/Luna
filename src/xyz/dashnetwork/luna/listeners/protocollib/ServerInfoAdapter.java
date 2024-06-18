@@ -26,9 +26,9 @@ import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedServerPing;
 import org.bukkit.plugin.Plugin;
 
-public final class ServerInfoListener extends PacketAdapter {
+public final class ServerInfoAdapter extends PacketAdapter {
 
-    public ServerInfoListener(Plugin plugin) {
+    public ServerInfoAdapter(Plugin plugin) {
         super(plugin, PacketType.Status.Server.SERVER_INFO);
 
         ProtocolLibrary.getProtocolManager().addPacketListener(this);
