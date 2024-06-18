@@ -59,6 +59,7 @@ public final class Luna extends JavaPlugin {
 
         getLogger().info("Registering listeners...");
         PluginManager manager = getServer().getPluginManager();
+        manager.registerEvents(new AsyncPlayerChatListener(), this);
         manager.registerEvents(new BlockBreakListener(), this);
         manager.registerEvents(new BlockPlaceListener(), this);
         manager.registerEvents(new PlayerInteractListener(), this);

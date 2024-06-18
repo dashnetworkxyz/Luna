@@ -1,6 +1,7 @@
 package xyz.dashnetwork.luna.utils.chat.builder.sections;
 
 import net.md_5.bungee.api.chat.ClickEvent;
+import org.bukkit.ChatColor;
 import xyz.dashnetwork.luna.utils.chat.builder.Format;
 import xyz.dashnetwork.luna.utils.chat.builder.Section;
 import xyz.dashnetwork.luna.utils.connection.User;
@@ -43,6 +44,12 @@ public final class FormatSection implements Section {
     @Override
     public Section insertion(String insertion) {
         forEach(section -> section.insertion(insertion));
+        return this;
+    }
+
+    @Override
+    public Section color(ChatColor color) {
+        forEach(section -> section.color(color));
         return this;
     }
 

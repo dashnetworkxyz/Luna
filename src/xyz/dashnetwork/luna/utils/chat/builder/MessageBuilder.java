@@ -75,6 +75,8 @@ public final class MessageBuilder {
 
     public void message(@NotNull CommandSender audience) { MessageUtils.message(audience, this::build); }
 
+    public void message(@NotNull User user) { MessageUtils.message(user.getPlayer(), this::build); }
+
     public void broadcast(@NotNull Predicate<User> filter) { MessageUtils.broadcast(filter, this::build); }
 
     public void broadcast() { MessageUtils.broadcast(this::build); }

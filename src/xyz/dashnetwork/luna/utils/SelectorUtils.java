@@ -21,6 +21,7 @@ package xyz.dashnetwork.luna.utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import xyz.dashnetwork.luna.utils.connection.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -59,6 +60,16 @@ public final class SelectorUtils {
         }
 
         return list;
+    }
+
+    public static List<User> usersOrSelf(CommandSender sender, String[] args) {
+        List<Player> players = playersOrSelf(sender, args);
+        List<User> users = new ArrayList<>();
+
+        for (Player player : players)
+            users.add(User.getUser(player));
+
+        return users;
     }
 
 }

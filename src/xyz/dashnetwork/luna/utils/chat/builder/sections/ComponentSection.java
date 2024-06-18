@@ -3,6 +3,7 @@ package xyz.dashnetwork.luna.utils.chat.builder.sections;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.ChatColor;
 import xyz.dashnetwork.luna.utils.chat.ColorUtils;
 import xyz.dashnetwork.luna.utils.chat.StyleUtils;
 import xyz.dashnetwork.luna.utils.chat.builder.Section;
@@ -68,6 +69,14 @@ public final class ComponentSection implements Section {
     public Section insertion(String insertion) {
         for (BaseComponent component : components)
             component.setInsertion(insertion);
+        return this;
+    }
+
+    @Override
+    public Section color(ChatColor color) {
+        for (BaseComponent component : components)
+            if (component.getColorRaw() == null)
+                component.setColor(color.asBungee());
         return this;
     }
 
