@@ -16,13 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package xyz.dashnetwork.luna.commands;
+package xyz.dashnetwork.luna.command.commands;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import xyz.dashnetwork.luna.command.LunaCommand;
 import xyz.dashnetwork.luna.utils.PermissionType;
 import xyz.dashnetwork.luna.utils.SelectorUtils;
 import xyz.dashnetwork.luna.utils.chat.MessageUtils;
@@ -33,10 +32,14 @@ import xyz.dashnetwork.luna.utils.connection.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class CommandBuild implements CommandExecutor {
+public final class CommandBuild extends LunaCommand {
+
+    public CommandBuild() {
+        super("build", PermissionType.ADMIN);
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public void execute(CommandSender sender, String label, String[] args) {
         List<User> targets = new ArrayList<>();
 
         if (args.length > 0 && PermissionType.ADMIN.hasPermission(sender))
@@ -46,7 +49,7 @@ public final class CommandBuild implements CommandExecutor {
 
         if (targets.isEmpty()) {
             MessageUtils.message(sender, "&6&l» &cNo player was found.");
-            return true;
+            return;
         }
 
         List<User> on = new ArrayList<>();
@@ -90,8 +93,6 @@ public final class CommandBuild implements CommandExecutor {
             builder.append("&7 can no longer build.");
             builder.message(sender);
         }
-
-        return true;
     }
 
 }

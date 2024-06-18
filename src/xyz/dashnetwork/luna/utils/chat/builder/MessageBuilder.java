@@ -5,8 +5,6 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import xyz.dashnetwork.luna.utils.chat.MessageUtils;
 import xyz.dashnetwork.luna.utils.chat.builder.sections.ComponentSection;
 import xyz.dashnetwork.luna.utils.chat.builder.sections.FormatSection;
@@ -23,24 +21,24 @@ public final class MessageBuilder {
 
     public int size() { return sections.size(); }
 
-    public Section append(@NotNull String text) {
+    public Section append(String text) {
         ComponentSection section = new ComponentSection(getStyleFromPrevious() + text);
         sections.add(section);
 
         return section;
     }
 
-    public Section append(@NotNull Format format) {
+    public Section append(Format format) {
         sections.addAll(format.sections());
         return new FormatSection(format);
     }
 
-    public Section append(@NotNull ComponentSection section) {
+    public Section append(ComponentSection section) {
         sections.add(section);
         return section;
     }
 
-    public BaseComponent[] build(@Nullable User user) {
+    public BaseComponent[] build(User user) {
         List<BaseComponent> list = new ArrayList<>();
 
         for (ComponentSection section : sections) {
@@ -73,11 +71,11 @@ public final class MessageBuilder {
         return list.toArray(BaseComponent[]::new);
     }
 
-    public void message(@NotNull CommandSender audience) { MessageUtils.message(audience, this::build); }
+    public void message(CommandSender audience) { MessageUtils.message(audience, this::build); }
 
-    public void message(@NotNull User user) { MessageUtils.message(user.getPlayer(), this::build); }
+    public void message(User user) { MessageUtils.message(user.getPlayer(), this::build); }
 
-    public void broadcast(@NotNull Predicate<User> filter) { MessageUtils.broadcast(filter, this::build); }
+    public void broadcast(Predicate<User> filter) { MessageUtils.broadcast(filter, this::build); }
 
     public void broadcast() { MessageUtils.broadcast(this::build); }
 

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class UserFormat implements Format {
+public final class UserFormat implements Format {
 
     private final List<ComponentSection> sections = new ArrayList<>();
     private String server = Luna.getInstance().getConfig().getString("server-name");

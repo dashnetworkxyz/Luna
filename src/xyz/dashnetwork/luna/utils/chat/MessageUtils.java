@@ -24,7 +24,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
 import xyz.dashnetwork.luna.Luna;
 import xyz.dashnetwork.luna.utils.connection.User;
 
@@ -52,7 +51,7 @@ public final class MessageUtils {
             sender.sendMessage(TextComponent.toLegacyText(components));
     }
 
-    public static void message(CommandSender sender, Function<@Nullable User, BaseComponent[]> function) {
+    public static void message(CommandSender sender, Function<User, BaseComponent[]> function) {
         message(sender, function.apply(User.getUser(sender).orElse(null)));
     }
 
@@ -64,7 +63,7 @@ public final class MessageUtils {
         server.broadcast(components);
     }
 
-    public static void broadcast(Function<@Nullable User, BaseComponent[]> function) {
+    public static void broadcast(Function<User, BaseComponent[]> function) {
         broadcast(true, function);
     }
 
@@ -76,7 +75,7 @@ public final class MessageUtils {
         broadcast(true, predicate, components);
     }
 
-    public static void broadcast(Predicate<User> predicate, Function<@Nullable User, BaseComponent[]> function) {
+    public static void broadcast(Predicate<User> predicate, Function<User, BaseComponent[]> function) {
         broadcast(true, predicate, function);
     }
 
@@ -88,7 +87,7 @@ public final class MessageUtils {
         broadcast(console, user -> true, components);
     }
 
-    public static void broadcast(boolean console, Function<@Nullable User, BaseComponent[]> function) {
+    public static void broadcast(boolean console, Function<User, BaseComponent[]> function) {
         broadcast(console, user -> true, function);
     }
 
@@ -105,7 +104,7 @@ public final class MessageUtils {
         broadcast(console, predicate, user -> components);
     }
 
-    public static void broadcast(boolean console, Predicate<User> predicate, Function<@Nullable User, BaseComponent[]> function) {
+    public static void broadcast(boolean console, Predicate<User> predicate, Function<User, BaseComponent[]> function) {
         for (User user : User.getUsers())
             if (predicate.test(user))
                 message(user.getPlayer(), function.apply(user));

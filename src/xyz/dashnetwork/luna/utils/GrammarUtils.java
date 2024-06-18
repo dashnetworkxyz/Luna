@@ -1,6 +1,6 @@
 package xyz.dashnetwork.luna.utils;
 
-public class GrammarUtils {
+public final class GrammarUtils {
 
     public static String possessive(String string) {
         if (string.toLowerCase().endsWith("s"))

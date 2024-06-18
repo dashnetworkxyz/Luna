@@ -26,10 +26,11 @@ import xyz.dashnetwork.luna.channel.channels.input.ChannelInTwoFactor;
 import xyz.dashnetwork.luna.channel.channels.input.ChannelInVanish;
 import xyz.dashnetwork.luna.channel.channels.output.ChannelOutBroadcast;
 import xyz.dashnetwork.luna.channel.channels.output.ChannelOutSignSpy;
-import xyz.dashnetwork.luna.commands.CommandBuild;
-import xyz.dashnetwork.luna.commands.CommandCenter;
-import xyz.dashnetwork.luna.commands.CommandNightVision;
-import xyz.dashnetwork.luna.commands.CommandPeek;
+import xyz.dashnetwork.luna.command.LunaCommand;
+import xyz.dashnetwork.luna.command.commands.CommandBuild;
+import xyz.dashnetwork.luna.command.commands.CommandCenter;
+import xyz.dashnetwork.luna.command.commands.CommandNightVision;
+import xyz.dashnetwork.luna.command.commands.CommandPeek;
 import xyz.dashnetwork.luna.listeners.*;
 import xyz.dashnetwork.luna.listeners.mc112.PaperServerListPingListener;
 import xyz.dashnetwork.luna.listeners.protocollib.ServerInfoAdapter;
@@ -78,13 +79,13 @@ public final class Luna extends JavaPlugin {
             new ServerInfoAdapter(this);
 
         getLogger().info("Registering commands...");
-        getCommand("build").setExecutor(new CommandBuild());
-        getCommand("center").setExecutor(new CommandCenter());
-        getCommand("nightvision").setExecutor(new CommandNightVision());
-        getCommand("peek").setExecutor(new CommandPeek());
+        new CommandBuild();
+        new CommandCenter();
+        new CommandNightVision();
+        new CommandPeek();
 
-        getLogger().info("Scheduling tasks...");
-        // TODO: Tasks
+        // Wait until all plugins have loaded.
+        getServer().getScheduler().scheduleSyncDelayedTask(this, LunaCommand::setupRemaps);
 
         getLogger().info("Startup complete. (took " + (System.currentTimeMillis() - start) + "ms)");
     }

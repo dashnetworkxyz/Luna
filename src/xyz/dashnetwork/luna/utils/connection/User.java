@@ -40,7 +40,7 @@ public final class User {
     private User(Player player) {
         this.player = player;
         this.authenticated = !config.getBoolean("hold-for-2fa");
-        this.build = BuildType.valueOf(config.getString("build-default").toUpperCase()).getPredicate().test(this);
+        this.build = BuildType.parse(config.getString("build-default")).getPredicate().test(this);
 
         users.add(this);
     }

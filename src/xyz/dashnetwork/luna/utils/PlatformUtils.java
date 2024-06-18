@@ -22,9 +22,12 @@ import org.bukkit.Bukkit;
 
 public final class PlatformUtils {
 
-    public static double getServerVersion() {
+    private static double version;
+    private static String nms;
+
+    static {
         String bukkit = Bukkit.getVersion();
-        double version = 8; // Default to 1.8
+        version = 8; // Default to 1.8
         String result;
 
         if (bukkit.contains("(MC: "))
@@ -40,7 +43,15 @@ public final class PlatformUtils {
             exception.printStackTrace();
         }
 
+        nms = Bukkit.getServer().getClass().getName().split("\\.")[3];
+    }
+
+    public static double getServerVersion() {
         return version;
+    }
+
+    public static String getNMSPackage() {
+        return nms;
     }
 
 }

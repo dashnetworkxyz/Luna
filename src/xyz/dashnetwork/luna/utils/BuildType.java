@@ -36,4 +36,12 @@ public enum BuildType {
 
     public Predicate<User> getPredicate() { return predicate; }
 
+    public static BuildType parse(String string) {
+        try {
+            return BuildType.valueOf(string.toUpperCase());
+        } catch (IllegalArgumentException exception) {
+            return BuildType.DENIED;
+        }
+    }
+
 }

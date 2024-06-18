@@ -25,4 +25,23 @@ public record Style(ChatColor color,
         );
     }
 
+    public boolean isStyled() {
+        if (color != null)
+            return true;
+
+        if (obfuscated)
+            return true;
+
+        if (bold)
+            return true;
+
+        if (strikethrough)
+            return true;
+
+        if (underlined)
+            return true;
+
+        return italic;
+    }
+
 }

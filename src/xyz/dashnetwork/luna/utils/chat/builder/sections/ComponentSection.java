@@ -5,7 +5,6 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import xyz.dashnetwork.luna.utils.chat.ColorUtils;
-import xyz.dashnetwork.luna.utils.chat.StyleUtils;
 import xyz.dashnetwork.luna.utils.chat.builder.Section;
 import xyz.dashnetwork.luna.utils.chat.builder.Style;
 import xyz.dashnetwork.luna.utils.connection.User;
@@ -34,8 +33,10 @@ public final class ComponentSection implements Section {
         Style style = null;
 
         for (int i = components.length - 1; i >= 0; i--) {
-            if (StyleUtils.hasStyle(components[i])) {
-                style = Style.from(components[i]);
+            Style temp = Style.from(components[i]);
+
+            if (temp.isStyled()) {
+                style = temp;
                 break;
             }
         }

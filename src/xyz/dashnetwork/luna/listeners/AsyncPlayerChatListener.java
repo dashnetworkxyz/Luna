@@ -5,7 +5,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import xyz.dashnetwork.luna.Luna;
 
-public class AsyncPlayerChatListener implements Listener {
+public final class AsyncPlayerChatListener implements Listener {
 
     private boolean local = Luna.getInstance().getConfig().getBoolean("local-chat");
 

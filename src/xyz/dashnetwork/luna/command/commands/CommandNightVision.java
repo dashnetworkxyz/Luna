@@ -16,21 +16,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package xyz.dashnetwork.luna.commands;
+package xyz.dashnetwork.luna.command.commands;
 
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import xyz.dashnetwork.luna.command.LunaCommand;
+import xyz.dashnetwork.luna.utils.PermissionType;
 import xyz.dashnetwork.luna.utils.PlatformUtils;
 import xyz.dashnetwork.luna.utils.chat.MessageUtils;
 
-public final class CommandNightVision implements CommandExecutor {
+public final class CommandNightVision extends LunaCommand {
+
+    public CommandNightVision() {
+        super("nightvision", PermissionType.STAFF);
+    }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public void execute(CommandSender sender, String label, String[] args) {
         if (sender instanceof Player player) {
             if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
                 player.removePotionEffect(PotionEffectType.NIGHT_VISION);
@@ -41,8 +45,6 @@ public final class CommandNightVision implements CommandExecutor {
             }
         } else
             MessageUtils.message(sender, "&6&l»&c Only players can use this command.");
-
-        return true;
     }
 
 }

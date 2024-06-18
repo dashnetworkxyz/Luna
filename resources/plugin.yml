@@ -1,5 +1,5 @@
 name: Luna
-version: 0.4
+version: 0.5
 author: MasterDash5
 softdepend: [ ProtocolLib ]
 main: xyz.dashnetwork.luna.Luna
@@ -8,15 +8,10 @@ folia-supported: true
 
 commands:
   build:
-    aliases: ["b"]
-    permission: "dashnetwork.admin"
   center:
-    permission: "dashnetwork.staff"
   nightvision:
-    aliases: ["nc", "see", "c"]
-    permission: "dashnetwork.staff"
+    aliases: ["nv","see","c"]
   peek:
-    permission: "dashnetwork.staff"
 
 permissions:
   dashnetwork.staff:
