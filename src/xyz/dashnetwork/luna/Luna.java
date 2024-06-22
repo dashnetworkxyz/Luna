@@ -24,13 +24,11 @@ import xyz.dashnetwork.luna.channel.Channel;
 import xyz.dashnetwork.luna.channel.channels.input.ChannelInDisplayName;
 import xyz.dashnetwork.luna.channel.channels.input.ChannelInUserData;
 import xyz.dashnetwork.luna.channel.channels.input.ChannelInVanish;
+import xyz.dashnetwork.luna.channel.channels.input.ChannelInVersion;
 import xyz.dashnetwork.luna.channel.channels.output.ChannelOutBroadcast;
 import xyz.dashnetwork.luna.channel.channels.output.ChannelOutSignSpy;
 import xyz.dashnetwork.luna.command.LunaCommand;
-import xyz.dashnetwork.luna.command.commands.CommandBuild;
-import xyz.dashnetwork.luna.command.commands.CommandCenter;
-import xyz.dashnetwork.luna.command.commands.CommandNightVision;
-import xyz.dashnetwork.luna.command.commands.CommandPeek;
+import xyz.dashnetwork.luna.command.commands.*;
 import xyz.dashnetwork.luna.listeners.*;
 import xyz.dashnetwork.luna.listeners.mc112.PaperServerListPingListener;
 import xyz.dashnetwork.luna.listeners.protocollib.ServerInfoAdapter;
@@ -53,8 +51,9 @@ public final class Luna extends JavaPlugin {
 
         getLogger().info("Registering channels...");
         Channel.registerIn("displayname", ChannelInDisplayName::new);
-        Channel.registerIn("twofactor", ChannelInUserData::new);
+        Channel.registerIn("userdata", ChannelInUserData::new);
         Channel.registerIn("vanish", ChannelInVanish::new);
+        Channel.registerIn("version", ChannelInVersion::new);
         Channel.registerOut("broadcast", ChannelOutBroadcast::new);
         Channel.registerOut("signspy", ChannelOutSignSpy::new);
 
@@ -83,6 +82,8 @@ public final class Luna extends JavaPlugin {
         new CommandCenter();
         new CommandNightVision();
         new CommandPeek();
+        new CommandServerInfo();
+        new CommandSleep();
 
         // Wait until all plugins have loaded.
         getServer().getScheduler().scheduleSyncDelayedTask(this, LunaCommand::setupRemaps);

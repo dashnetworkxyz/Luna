@@ -34,9 +34,7 @@ import java.util.List;
 
 public final class CommandBuild extends LunaCommand {
 
-    public CommandBuild() {
-        super("build", PermissionType.ADMIN);
-    }
+    public CommandBuild() { super("build", PermissionType.ADMIN); }
 
     @Override
     protected void execute(CommandSender sender, String label, String[] args) {

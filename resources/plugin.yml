@@ -1,5 +1,5 @@
 name: Luna
-version: 0.5
+version: 0.6
 author: MasterDash5
 softdepend: [ ProtocolLib ]
 main: xyz.dashnetwork.luna.Luna
@@ -12,6 +12,9 @@ commands:
   nightvision:
     aliases: ["nv","see","c"]
   peek:
+  serverinfo:
+    aliases: ["si"]
+  sleep:
 
 permissions:
   dashnetwork.staff:

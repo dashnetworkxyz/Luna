@@ -36,10 +36,12 @@ public final class User {
     private static final List<User> users = new ArrayList<>();
     private static final FileConfiguration config = Luna.getInstance().getConfig();
     private final Player player;
+    private String version;
     private boolean authenticated, build, vanish, hideAddress;
 
     private User(Player player) {
         this.player = player;
+        this.version = "Unknown";
         this.authenticated = !config.getBoolean("hold-for-2fa");
         this.build = BuildType.parse(config.getString("build-default")).getPredicate().test(this);
         this.vanish = false;
@@ -76,6 +78,10 @@ public final class User {
     public void remove() { users.remove(this); }
 
     public Player getPlayer() { return player; }
+
+    public String getVersion() { return version; }
+
+    public void setVersion(String version) { this.version = version; }
 
     public boolean isAuthenticated() { return authenticated; }
 

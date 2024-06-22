@@ -9,7 +9,6 @@ import xyz.dashnetwork.luna.utils.connection.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class UserFormat implements Format {
 
@@ -25,7 +24,7 @@ public final class UserFormat implements Format {
 
         ComponentSection section = new ComponentSection(displayname);
         section.hover("&6" + username);
-        section.hover("&7Address: &6" + address, User::isAdmin); // TODO: Sync with Celest on hide address
+        section.hover("&7Address: &6" + address, each -> each.isAdmin() && !each.getHideAddress());
         section.hover("&7Server: &6" + server);
         section.insertion(uuid);
 

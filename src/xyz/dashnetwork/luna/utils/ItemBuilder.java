@@ -7,7 +7,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -48,23 +47,13 @@ public final class ItemBuilder<T extends ItemMeta> {
     }
 
     public ItemBuilder<T> unbreakable() {
-        try {
-            if (PlatformUtils.getServerVersion() >= 10) {
-                Method setUnbreakable = meta.getClass().getMethod("setUnbreakable", boolean.class);
-                setUnbreakable.setAccessible(true);
-                setUnbreakable.invoke(meta, true);
-            } else {
-                Method spigot = meta.getClass().getMethod("spigot");
-                spigot.setAccessible(true);
+        ClassWrapper wrapper = new ClassWrapper(meta);
 
-                Object spigotObject = spigot.invoke(meta);
-
-                Method setUnbreakable = spigotObject.getClass().getMethod("setUnbreakable", boolean.class);
-                setUnbreakable.setAccessible(true);
-                setUnbreakable.invoke(spigotObject, true);
-            }
-        } catch (ReflectiveOperationException exception) {
-            exception.printStackTrace();
+        if (PlatformUtils.getServerVersion() >= 10)
+            wrapper.callMethod("setUnbreakable", true);
+        else {
+            ClassWrapper spigot = new ClassWrapper(wrapper.callMethodDeclared("spigot"));
+            spigot.callMethod("setUnbreakable", true);
         }
 
         return this;

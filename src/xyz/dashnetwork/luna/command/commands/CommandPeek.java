@@ -15,9 +15,7 @@ import xyz.dashnetwork.luna.utils.chat.MessageUtils;
 
 public final class CommandPeek extends LunaCommand {
 
-    public CommandPeek() {
-        super("peek", PermissionType.STAFF);
-    }
+    public CommandPeek() { super("peek", PermissionType.STAFF); }
 
     @Override
     protected void execute(CommandSender sender, String label, String[] args) {

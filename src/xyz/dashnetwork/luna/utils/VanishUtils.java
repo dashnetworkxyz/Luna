@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import xyz.dashnetwork.luna.utils.connection.User;
 
-public class VanishUtils {
+public final class VanishUtils {
 
     public static void hide(Player player) {
         for (User online : User.getUsers()) {

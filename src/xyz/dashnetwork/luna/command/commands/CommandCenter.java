@@ -9,9 +9,7 @@ import xyz.dashnetwork.luna.utils.chat.MessageUtils;
 
 public final class CommandCenter extends LunaCommand {
 
-    public CommandCenter() {
-        super("center", PermissionType.ADMIN);
-    }
+    public CommandCenter() { super("center", PermissionType.ADMIN); }
 
     @Override
     protected void execute(CommandSender sender, String label, String[] args) {

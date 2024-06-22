@@ -29,9 +29,7 @@ import xyz.dashnetwork.luna.utils.chat.MessageUtils;
 
 public final class CommandNightVision extends LunaCommand {
 
-    public CommandNightVision() {
-        super("nightvision", PermissionType.STAFF);
-    }
+    public CommandNightVision() { super("nightvision", PermissionType.STAFF); }
 
     @Override
     protected void execute(CommandSender sender, String label, String[] args) {

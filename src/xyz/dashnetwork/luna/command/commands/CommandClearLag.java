@@ -10,16 +10,10 @@ import xyz.dashnetwork.luna.utils.LazyUtils;
 import xyz.dashnetwork.luna.utils.PermissionType;
 import xyz.dashnetwork.luna.utils.chat.builder.MessageBuilder;
 import xyz.dashnetwork.luna.utils.chat.builder.formats.SenderFormat;
-import xyz.dashnetwork.luna.utils.chat.builder.formats.UserFormat;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public final class CommandClearLag extends LunaCommand {
 
-    public CommandClearLag() {
-        super("clearlag", PermissionType.ADMIN);
-    }
+    public CommandClearLag() { super("clearlag", PermissionType.ADMIN); }
 
     @Override
     protected void execute(CommandSender sender, String label, String[] args) {
@@ -29,7 +23,6 @@ public final class CommandClearLag extends LunaCommand {
             for (Entity entity : world.getEntities()) {
                 if (entity.getCustomName() == null) { // TODO: Check for PersistenceRequired
                     EntityType type = entity.getType();
-                    String name = entity.getName();
 
                     if (LazyUtils.anyEquals(type, EntityType.DROPPED_ITEM, EntityType.EXPERIENCE_ORB)
                             || (type.equals(EntityType.ARROW) && entity.isOnGround())) {
