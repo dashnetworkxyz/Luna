@@ -20,7 +20,7 @@ public final class CommandPeek extends LunaCommand {
     }
 
     @Override
-    public void execute(CommandSender sender, String label, String[] args) {
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (sender instanceof Player player) {
             ItemStack item = player.getItemInHand();
 

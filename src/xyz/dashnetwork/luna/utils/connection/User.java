@@ -24,6 +24,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import xyz.dashnetwork.luna.Luna;
 import xyz.dashnetwork.luna.utils.BuildType;
+import xyz.dashnetwork.luna.utils.VanishUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +36,14 @@ public final class User {
     private static final List<User> users = new ArrayList<>();
     private static final FileConfiguration config = Luna.getInstance().getConfig();
     private final Player player;
-    private boolean authenticated, build;
+    private boolean authenticated, build, vanish, hideAddress;
 
     private User(Player player) {
         this.player = player;
         this.authenticated = !config.getBoolean("hold-for-2fa");
         this.build = BuildType.parse(config.getString("build-default")).getPredicate().test(this);
+        this.vanish = false;
+        this.hideAddress = true;
 
         users.add(this);
     }
@@ -81,6 +84,21 @@ public final class User {
     public boolean canBuild() { return build; }
 
     public void setBuild(boolean build) { this.build = build; }
+
+    public boolean isVanished() { return vanish; }
+
+    public void setVanish(boolean vanish) {
+        this.vanish = vanish;
+
+        if (vanish)
+            VanishUtils.hide(player);
+        else
+            VanishUtils.show(player);
+    }
+
+    public boolean getHideAddress() { return hideAddress; }
+
+    public void setHideAddress(boolean hideAddress) { this.hideAddress = hideAddress; }
 
     public boolean isStaff() { return player.hasPermission("dashnetwork.staff") || isAdmin(); }
 

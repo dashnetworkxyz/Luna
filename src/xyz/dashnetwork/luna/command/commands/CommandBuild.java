@@ -39,7 +39,7 @@ public final class CommandBuild extends LunaCommand {
     }
 
     @Override
-    public void execute(CommandSender sender, String label, String[] args) {
+    protected void execute(CommandSender sender, String label, String[] args) {
         List<User> targets = new ArrayList<>();
 
         if (args.length > 0 && PermissionType.ADMIN.hasPermission(sender))

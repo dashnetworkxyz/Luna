@@ -26,16 +26,22 @@ import xyz.dashnetwork.luna.utils.connection.User;
 
 import java.util.UUID;
 
-public final class ChannelInTwoFactor extends Channel {
+public final class ChannelInUserData extends Channel {
 
     @Override
     protected void receive(ByteArrayDataInput input) {
         UUID uuid = UUID.fromString(input.readUTF());
         boolean authenticated = input.readBoolean();
+        boolean hideAddress = input.readBoolean();
+
         Player player = Bukkit.getPlayer(uuid);
 
-        if (player != null)
-            User.getUser(player).setAuthenticated(authenticated);
+        if (player != null) {
+            User user = User.getUser(player);
+
+            user.setAuthenticated(authenticated);
+            user.setHideAddress(hideAddress);
+        }
     }
 
 }

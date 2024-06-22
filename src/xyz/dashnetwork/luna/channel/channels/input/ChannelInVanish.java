@@ -17,18 +17,8 @@ public final class ChannelInVanish extends Channel {
 
         Player player = Bukkit.getPlayer(uuid);
 
-        if (player != null) {
-            if (vanish) {
-                for (User online : User.getUsers()) {
-                    Player target = online.getPlayer();
-
-                    if (!target.equals(player) && !online.isStaff())
-                        target.hidePlayer(player);
-                }
-            } else
-                for (Player online : Bukkit.getOnlinePlayers())
-                    online.showPlayer(player);
-        }
+        if (player != null)
+            User.getUser(player).setVanish(vanish);
     }
 
 }

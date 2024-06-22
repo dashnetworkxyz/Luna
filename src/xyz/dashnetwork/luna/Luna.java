@@ -22,7 +22,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.dashnetwork.luna.channel.Channel;
 import xyz.dashnetwork.luna.channel.channels.input.ChannelInDisplayName;
-import xyz.dashnetwork.luna.channel.channels.input.ChannelInTwoFactor;
+import xyz.dashnetwork.luna.channel.channels.input.ChannelInUserData;
 import xyz.dashnetwork.luna.channel.channels.input.ChannelInVanish;
 import xyz.dashnetwork.luna.channel.channels.output.ChannelOutBroadcast;
 import xyz.dashnetwork.luna.channel.channels.output.ChannelOutSignSpy;
@@ -53,7 +53,7 @@ public final class Luna extends JavaPlugin {
 
         getLogger().info("Registering channels...");
         Channel.registerIn("displayname", ChannelInDisplayName::new);
-        Channel.registerIn("twofactor", ChannelInTwoFactor::new);
+        Channel.registerIn("twofactor", ChannelInUserData::new);
         Channel.registerIn("vanish", ChannelInVanish::new);
         Channel.registerOut("broadcast", ChannelOutBroadcast::new);
         Channel.registerOut("signspy", ChannelOutSignSpy::new);

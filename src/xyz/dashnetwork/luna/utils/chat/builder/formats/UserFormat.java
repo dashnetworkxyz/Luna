@@ -9,6 +9,7 @@ import xyz.dashnetwork.luna.utils.connection.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public final class UserFormat implements Format {
 

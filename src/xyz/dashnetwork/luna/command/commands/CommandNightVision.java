@@ -34,7 +34,7 @@ public final class CommandNightVision extends LunaCommand {
     }
 
     @Override
-    public void execute(CommandSender sender, String label, String[] args) {
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (sender instanceof Player player) {
             if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
                 player.removePotionEffect(PotionEffectType.NIGHT_VISION);

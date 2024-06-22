@@ -14,7 +14,7 @@ public final class CommandCenter extends LunaCommand {
     }
 
     @Override
-    public void execute(CommandSender sender, String label, String[] args) {
+    protected void execute(CommandSender sender, String label, String[] args) {
         if (sender instanceof Player player) {
             Location location = player.getLocation().clone();
 
