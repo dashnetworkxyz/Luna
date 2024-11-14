@@ -52,7 +52,7 @@ public final class ItemBuilder<T extends ItemMeta> {
         if (PlatformUtils.getServerVersion() >= 10)
             wrapper.callMethod("setUnbreakable", true);
         else {
-            ClassWrapper spigot = new ClassWrapper(wrapper.callMethodDeclared("spigot"));
+            ClassWrapper spigot = new ClassWrapper((Object) wrapper.callMethod("spigot"));
             spigot.callMethod("setUnbreakable", true);
         }
 
