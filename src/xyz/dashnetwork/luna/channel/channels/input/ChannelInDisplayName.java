@@ -22,6 +22,7 @@ import com.google.common.io.ByteArrayDataInput;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import xyz.dashnetwork.luna.channel.Channel;
+import xyz.dashnetwork.luna.utils.Queue;
 
 import java.util.UUID;
 
@@ -36,6 +37,11 @@ public final class ChannelInDisplayName extends Channel {
         if (player != null) {
             player.setDisplayName(displayname);
             player.setPlayerListName(displayname);
+        } else {
+            new Queue(uuid, queued -> {
+                queued.setDisplayName(displayname);
+                queued.setPlayerListName(displayname);
+            });
         }
     }
 

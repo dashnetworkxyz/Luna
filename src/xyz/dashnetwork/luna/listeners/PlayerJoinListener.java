@@ -21,11 +21,13 @@ package xyz.dashnetwork.luna.listeners;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import xyz.dashnetwork.luna.utils.Queue;
 
 public final class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
+        Queue.runQueuedActions(event.getPlayer());
         event.setJoinMessage(null);
     }
 

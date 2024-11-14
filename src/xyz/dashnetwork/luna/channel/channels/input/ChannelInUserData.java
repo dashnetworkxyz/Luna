@@ -22,6 +22,7 @@ import com.google.common.io.ByteArrayDataInput;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import xyz.dashnetwork.luna.channel.Channel;
+import xyz.dashnetwork.luna.utils.Queue;
 import xyz.dashnetwork.luna.utils.connection.User;
 
 import java.util.UUID;
@@ -41,6 +42,13 @@ public final class ChannelInUserData extends Channel {
 
             user.setAuthenticated(authenticated);
             user.setHideAddress(hideAddress);
+        } else {
+            new Queue(uuid, queued -> {
+                User user = User.getUser(queued);
+
+                user.setAuthenticated(authenticated);
+                user.setHideAddress(hideAddress);
+            });
         }
     }
 
