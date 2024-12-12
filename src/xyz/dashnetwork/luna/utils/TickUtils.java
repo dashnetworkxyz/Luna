@@ -4,14 +4,14 @@ import org.bukkit.Bukkit;
 
 public final class TickUtils {
 
-    private static double version = PlatformUtils.getServerVersion();
+    private static final double version = PlatformUtils.getServerVersion();
 
     public static double[] getTPS() {
         if (version >= 12)
             return new ClassWrapper(Bukkit.class).callMethod("getTPS");
         else {
             ClassWrapper wrapper = new ClassWrapper("net.minecraft.server", "MinecraftServer");
-            wrapper = new ClassWrapper(wrapper.callMethod("getServer"));
+            wrapper = new ClassWrapper((Object) wrapper.callMethod("getServer"));
 
             return wrapper.getField("recentTps");
         }
@@ -22,22 +22,22 @@ public final class TickUtils {
             return new ClassWrapper(Bukkit.class).callMethod("getAverageTickTime");
         else {
             ClassWrapper wrapper = new ClassWrapper("net.minecraft.server", "MinecraftServer");
-            wrapper = new ClassWrapper(wrapper.callMethod("getServer"));
+            wrapper = new ClassWrapper((Object) wrapper.callMethod("getServer"));
             long[] timings;
 
             if (version < 13)
-                timings = wrapper.getFieldDeclared("h");
+                timings = wrapper.getField("h");
             else if (version < 14)
-                timings = wrapper.getFieldDeclared("d");
+                timings = wrapper.getField("d");
             else
-                timings = wrapper.getFieldDeclared("f");
+                timings = wrapper.getField("f");
 
             double average = 0;
 
             for (long timing : timings)
                 average += timing;
 
-            return average / timings.length;
+            return (average / timings.length) * 1.0E-6D;
         }
     }
 
