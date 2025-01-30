@@ -21,7 +21,7 @@ public final class CommandClearLag extends LunaCommand {
 
         for (World world : Bukkit.getWorlds()) {
             for (Entity entity : world.getEntities()) {
-                if (entity.getCustomName() == null) { // TODO: Check for PersistenceRequired
+                if (entity.getCustomName() == null) {
                     EntityType type = entity.getType();
 
                     if (LazyUtils.anyEquals(type, EntityType.DROPPED_ITEM, EntityType.EXPERIENCE_ORB)

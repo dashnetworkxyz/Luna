@@ -9,9 +9,13 @@ folia-supported: true
 commands:
   build:
   center:
+  clearlag:
+    aliases: ["cl"]
   nightvision:
     aliases: ["nv","see","c"]
   peek:
+  regeneration:
+    aliases: ["regen"]
   serverinfo:
     aliases: ["si"]
   sleep:

@@ -80,8 +80,10 @@ public final class Luna extends JavaPlugin {
         getLogger().info("Registering commands...");
         new CommandBuild();
         new CommandCenter();
+        new CommandClearLag();
         new CommandNightVision();
         new CommandPeek();
+        new CommandRegeneration();
         new CommandServerInfo();
         new CommandSleep();
 
