@@ -48,9 +48,9 @@ public final class ClassWrapper {
             Method method;
 
             if (declared)
-                method = clazz.getDeclaredMethod(methodName, classList.toArray(Class<?>[]::new));
+                method = clazz.getDeclaredMethod(methodName, classList.toArray(new Class<?>[0]));
             else
-                method = clazz.getMethod(methodName, classList.toArray(Class<?>[]::new));
+                method = clazz.getMethod(methodName, classList.toArray(new Class<?>[0]));
 
             method.setAccessible(true);
 
