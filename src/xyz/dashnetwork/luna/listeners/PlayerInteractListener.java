@@ -18,8 +18,10 @@
 
 package xyz.dashnetwork.luna.listeners;
 
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import xyz.dashnetwork.luna.utils.connection.User;
 
@@ -29,8 +31,13 @@ public final class PlayerInteractListener implements Listener {
     public void onPlayerInteract(PlayerInteractEvent event) {
         User user = User.getUser(event.getPlayer());
 
-        if (!user.canBuild())
+        if (user.canBuild())
+            return;
+
+        if (event.getAction() == Action.PHYSICAL)
             event.setCancelled(true);
+
+        event.setUseInteractedBlock(Event.Result.DENY);
     }
 
 }

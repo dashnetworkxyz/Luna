@@ -23,6 +23,9 @@ public final class SignChangeListener implements Listener {
         String line3 = event.getLine(2);
         String line4 = event.getLine(3);
 
+        if (line1.isBlank() && line2.isBlank() && line3.isBlank() && line4.isBlank())
+            return;
+
         Channel.call("signspy",
                 uuid,
                 x,
